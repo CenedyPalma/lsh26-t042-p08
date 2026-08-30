@@ -4,7 +4,8 @@
   "eventStartCode": "LSH26-8490-C900",
   "problemTitle": "School Result Processing and GPA Engine",
   "submissionTimestamp": "2026-08-30T19:38:00Z",
-  "liveUrl": "http://localhost:3000",
+  "liveUrl": "https://lsh26-t042-p08-api.vercel.app",
+  "localUrl": "http://localhost:3000",
   "apiUrl": "http://localhost:4000",
   "techStack": {
     "frontend": "Next.js 16+ (App Router), React 19, TypeScript, Tailwind CSS, TanStack Query, Lucide Icons, Archivo Google Font",

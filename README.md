@@ -3,8 +3,9 @@
 **Problem ID**: `p08`  
 **Team ID**: `lsh26-t042`  
 **Event Start Code**: `LSH26-8490-C900`  
-**Live URL**: [http://localhost:3000](http://localhost:3000)  
-**Backend API**: [http://localhost:4000](http://localhost:4000)  
+**Live Production URL**: [https://lsh26-t042-p08-api.vercel.app](https://lsh26-t042-p08-api.vercel.app)  
+**Local Web App**: [http://localhost:3000](http://localhost:3000)  
+**Local Backend API**: [http://localhost:4000](http://localhost:4000)  
 
 An institutional-grade, full-stack school result calculation, GPA derivation, audit trace, and teacher verification engine built with **Next.js 16+ (App Router)**, **Node.js + Express (TypeScript)**, **Prisma ORM**, and **PostgreSQL**.
 
