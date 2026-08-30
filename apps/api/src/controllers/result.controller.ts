@@ -16,7 +16,7 @@ export class ResultController {
 
   async getStudentResult(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { studentId } = req.params;
+      const studentId = String(req.params.studentId);
       const result = await resultService.getStudentResult(studentId);
 
       if (!result) {
@@ -41,7 +41,7 @@ export class ResultController {
 
   async getStudentTrace(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { studentId } = req.params;
+      const studentId = String(req.params.studentId);
       const trace = await resultService.getStudentTrace(studentId);
 
       if (!trace) {
@@ -64,7 +64,7 @@ export class ResultController {
     }
   }
 
-  async recalculate(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async recalculateAll(_req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const recalculation = await resultService.recalculateAllResults();
       res.json({

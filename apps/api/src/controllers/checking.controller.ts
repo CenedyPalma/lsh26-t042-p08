@@ -8,7 +8,7 @@ import {
 import { CheckingType, VerificationStatus } from '@school-result/shared';
 
 export class CheckingController {
-  async getAllCheckingItems(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async getCheckingItems(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const query = checkingQuerySchema.parse(req.query);
       const items = await checkingService.getCheckingItems({
@@ -25,7 +25,7 @@ export class CheckingController {
     }
   }
 
-  async getOptionalCheckingItems(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async getOptionalReviewItems(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { status, classId } = req.query;
       const items = await checkingService.getCheckingItems({
@@ -42,7 +42,7 @@ export class CheckingController {
     }
   }
 
-  async getPracticalFailCheckingItems(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async getPracticalFailReviewItems(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { status, classId } = req.query;
       const items = await checkingService.getCheckingItems({
@@ -59,7 +59,7 @@ export class CheckingController {
     }
   }
 
-  async getAbsentCheckingItems(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async getAbsentReviewItems(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { status, classId } = req.query;
       const items = await checkingService.getCheckingItems({
@@ -78,7 +78,7 @@ export class CheckingController {
 
   async verifyCheckingItem(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { id } = req.params;
+      const id = String(req.params.id);
       const { notes } = verifyItemSchema.parse(req.body);
       const item = await checkingService.verifyCheckingItem(id, notes);
       res.json({
@@ -93,7 +93,7 @@ export class CheckingController {
 
   async rejectCheckingItem(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { id } = req.params;
+      const id = String(req.params.id);
       const { notes } = rejectItemSchema.parse(req.body);
       const item = await checkingService.rejectCheckingItem(id, notes);
       res.json({

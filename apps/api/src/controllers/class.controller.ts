@@ -17,7 +17,7 @@ export class ClassController {
 
   async getClassStudents(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { classId } = req.params;
+      const classId = String(req.params.classId);
       const filters = classStudentsQuerySchema.parse(req.query);
       const students = await classService.getClassStudents(classId, filters);
       res.json({

@@ -24,7 +24,7 @@ export class StudentController {
 
   async getStudentById(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const { studentId } = req.params;
+      const studentId = String(req.params.studentId);
       const student = await studentService.getStudentById(studentId);
 
       if (!student) {

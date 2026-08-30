@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Express } from 'express';
 import cors from 'cors';
 import classRoutes from './routes/class.routes.js';
 import studentRoutes from './routes/student.routes.js';
@@ -6,8 +6,8 @@ import resultRoutes from './routes/result.routes.js';
 import checkingRoutes from './routes/checking.routes.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
-export function createApp() {
-  const app = express();
+export function createApp(): Express {
+  const app: Express = express();
 
   // Middleware
   app.use(cors());
