@@ -81,20 +81,20 @@ export class ClassService {
     });
 
     if (filters?.flag) {
-      return students.filter((s) => {
+      return students.filter((s: any) => {
         if (filters.flag === 'AB') {
-          return s.marks.some((m) => m.isAbsent || m.status === 'ABSENT');
+          return s.marks.some((m: any) => m.isAbsent || m.status === 'ABSENT');
         }
         if (filters.flag === 'PRACTICAL_FAIL') {
           return s.marks.some(
-            (m) =>
+            (m: any) =>
               m.subject.hasPractical &&
               m.practicalMarks !== null &&
               m.practicalMarks < 8
           );
         }
         if (filters.flag === 'OPTIONAL_REVIEW') {
-          return s.checkingItems.some((c) => c.type === 'OPTIONAL');
+          return s.checkingItems.some((c: any) => c.type === 'OPTIONAL');
         }
         return true;
       });

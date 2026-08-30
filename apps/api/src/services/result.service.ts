@@ -19,7 +19,7 @@ export class ResultService {
   async recalculateAllResults() {
     const subjects = await prisma.subject.findMany();
     const subjectMap = new Map<string, SubjectConfig>(
-      subjects.map((s) => [
+      subjects.map((s: any) => [
         s.id,
         {
           id: s.id,
@@ -36,7 +36,7 @@ export class ResultService {
     );
 
     const subjectByCodeMap = new Map<string, SubjectConfig>(
-      subjects.map((s) => [s.code, subjectMap.get(s.id)!])
+      subjects.map((s: any) => [s.code, subjectMap.get(s.id)!])
     );
 
     const students = await prisma.student.findMany({
@@ -48,12 +48,12 @@ export class ResultService {
       },
     });
 
-    const compulsorySubjects = subjects.filter((s) => !s.isOptional);
-    const compulsoryCodes = compulsorySubjects.map((s) => s.code);
+    const compulsorySubjects = subjects.filter((s: any) => !s.isOptional);
+    const compulsoryCodes = compulsorySubjects.map((s: any) => s.code);
 
     let calculatedCount = 0;
 
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
       for (const student of students) {
         const subjectResults: (SubjectResultCalculation & { subjectId: string })[] = [];
         const compulsoryResults: SubjectResultCalculation[] = [];
@@ -129,7 +129,7 @@ export class ResultService {
         });
 
         await tx.resultTrace.createMany({
-          data: subjectResults.map((sr) => ({
+          data: subjectResults.map((sr: any) => ({
             studentResultId: savedResult.id,
             subjectId: sr.subjectId,
             theoryMarks: sr.theoryMarks,
@@ -147,7 +147,7 @@ export class ResultService {
         // Insert new checking items
         if (checkingCalculations.length > 0) {
           await tx.checkingItem.createMany({
-            data: checkingCalculations.map((ci) => {
+            data: checkingCalculations.map((ci: any) => {
               const matchingSub = ci.subjectCode
                 ? subjectByCodeMap.get(ci.subjectCode)
                 : undefined;
@@ -218,8 +218,8 @@ export class ResultService {
     if (!student || !student.result) return null;
 
     const traces = student.result.traces;
-    const compulsoryTraces = traces.filter((t) => !t.subject.isOptional);
-    const optionalTrace = traces.find((t) => t.subject.isOptional) || null;
+    const compulsoryTraces = traces.filter((t: any) => !t.subject.isOptional);
+    const optionalTrace = traces.find((t: any) => t.subject.isOptional) || null;
 
     return {
       student: {
@@ -280,16 +280,16 @@ export class ResultService {
         }),
       ]);
 
-    const passedCount = results.filter((r) => r.overallResult === 'PASS').length;
-    const failedCount = results.filter((r) => r.overallResult === 'FAIL').length;
+    const passedCount = results.filter((r: any) => r.overallResult === 'PASS').length;
+    const failedCount = results.filter((r: any) => r.overallResult === 'FAIL').length;
     const passPercentage =
       results.length > 0 ? Number(((passedCount / results.length) * 100).toFixed(1)) : 0;
 
-    const gpas = results.map((r) => r.finalGPA);
+    const gpas = results.map((r: any) => r.finalGPA);
     const highestGPA = gpas.length > 0 ? Math.max(...gpas) : 0;
     const averageGPA =
       gpas.length > 0
-        ? Number((gpas.reduce((acc, g) => acc + g, 0) / gpas.length).toFixed(2))
+        ? Number((gpas.reduce((acc: number, g: number) => acc + g, 0) / gpas.length).toFixed(2))
         : 0;
 
     const gradeDistribution: Record<string, number> = {
@@ -302,7 +302,7 @@ export class ResultService {
       F: 0,
     };
 
-    results.forEach((r) => {
+    results.forEach((r: any) => {
       gradeDistribution[r.finalLetterGrade] =
         (gradeDistribution[r.finalLetterGrade] || 0) + 1;
     });

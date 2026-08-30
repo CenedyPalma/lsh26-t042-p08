@@ -6,7 +6,7 @@
     "dev": "pnpm --parallel --filter @school-result/api --filter @school-result/web dev",
     "dev:api": "pnpm --filter @school-result/api dev",
     "dev:web": "pnpm --filter @school-result/web dev",
-    "build": "pnpm --filter @school-result/shared build && pnpm --filter @school-result/api build && pnpm --filter @school-result/web build",
+    "build": "pnpm --filter @school-result/shared build && pnpm --filter @school-result/api db:generate && pnpm --filter @school-result/api build && pnpm --filter @school-result/web build",
     "test": "pnpm --filter @school-result/api test",
     "test:unit": "pnpm --filter @school-result/api test:unit",
     "test:api": "pnpm --filter @school-result/api test:api",
