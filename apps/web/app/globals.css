@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,100..900,100..900;1,100..900,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 98%;
+  --foreground: 0 0% 4%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 4%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 4%;
+
+  --primary: 0 0% 9%;
+  --primary-foreground: 0 0% 98%;
+
+  --secondary: 0 0% 96.1%;
+  --secondary-foreground: 0 0% 9%;
+
+  --muted: 0 0% 96.1%;
+  --muted-foreground: 0 0% 40%;
+
+  --accent: 0 0% 96.1%;
+  --accent-foreground: 0 0% 9%;
+
+  --destructive: 0 0% 9%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 0 0% 89.8%;
+  --input: 0 0% 89.8%;
+  --ring: 0 0% 9%;
+
+  --radius: 0.5rem;
+}
+
+body {
+  background-color: #fafafa;
+  color: #09090b;
+  font-family: "Archivo", sans-serif;
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Archivo Typography Utility Classes */
+.archivo-title {
+  font-family: "Archivo", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.archivo-subtitle {
+  font-family: "Archivo", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.archivo-regular {
+  font-family: "Archivo", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.archivo-medium {
+  font-family: "Archivo", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.archivo-bold {
+  font-family: "Archivo", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+/* Black & White Grade and Status Badges */
+.badge-grade-aplus {
+  background-color: #09090b;
+  color: #ffffff;
+  border: 1px solid #000000;
+}
+
+.badge-grade-a {
+  background-color: #18181b;
+  color: #ffffff;
+  border: 1px solid #27272a;
+}
+
+.badge-grade-aminus {
+  background-color: #27272a;
+  color: #ffffff;
+  border: 1px solid #3f3f46;
+}
+
+.badge-grade-b {
+  background-color: #3f3f46;
+  color: #ffffff;
+  border: 1px solid #52525b;
+}
+
+.badge-grade-c {
+  background-color: #f4f4f5;
+  color: #18181b;
+  border: 1px solid #d4d4d8;
+}
+
+.badge-grade-d {
+  background-color: #e4e4e7;
+  color: #27272a;
+  border: 1px solid #cbd5e1;
+}
+
+.badge-grade-f {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1.5px solid #000000;
+}
+
+.badge-flag-ab {
+  background-color: #f4f4f5;
+  color: #09090b;
+  border: 1px dashed #71717a;
+}
+
+.badge-flag-practical {
+  background-color: #ffffff;
+  color: #09090b;
+  border: 1px solid #a1a1aa;
+}
+
+.badge-flag-optional {
+  background-color: #f4f4f5;
+  color: #27272a;
+  border: 1px solid #e4e4e7;
+}

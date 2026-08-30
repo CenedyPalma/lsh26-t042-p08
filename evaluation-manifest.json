@@ -1,0 +1,47 @@
+{
+  "teamId": "lsh26-t042",
+  "problemId": "p08",
+  "eventStartCode": "LSH26-8490-C900",
+  "problemTitle": "School Result Processing and GPA Engine",
+  "submissionTimestamp": "2026-08-30T19:38:00Z",
+  "liveUrl": "http://localhost:3000",
+  "apiUrl": "http://localhost:4000",
+  "techStack": {
+    "frontend": "Next.js 16+ (App Router), React 19, TypeScript, Tailwind CSS, TanStack Query, Lucide Icons, Archivo Google Font",
+    "backend": "Node.js, Express.js, TypeScript, Prisma ORM, Zod",
+    "database": "PostgreSQL 16 (Docker Compose)",
+    "testing": "Vitest, Supertest, Custom Deterministic Rule Audit Suite"
+  },
+  "dataset": {
+    "totalStudents": 89,
+    "totalClasses": 2,
+    "compulsorySubjectsPerStudent": 6,
+    "optionalSubjectsPerStudent": 1,
+    "hardEdgeCasesCount": 9
+  },
+  "rulesImplemented": [
+    "R-10: Letter grade mapping (A+ = 5.00, A = 4.00-4.99, A- = 3.50-3.99, B = 3.00-3.49, C = 2.00-2.99, D = 1.00-1.99, F = 0.00)",
+    "R-11: Component pass marks (Theory >= 25/75, Practical >= 8/25, Theory-only >= 33/100; failing either fails subject with 0 GP)",
+    "R-12: Absence handling (Compulsory AB gives 0 GP and overall F; Optional AB gives 0 contribution and flags for checking)",
+    "R-13: Optional contribution max(0, GP - 2), GPA divided by 6, capped at 5.00, compulsory failure override to 0.00/F with preserved uncancelled GPA",
+    "R-29: Office checking lists for Optional Review (GP <= 2 or AB), Practical Fail (< 8), and Absent (AB) with multi-list support"
+  ],
+  "verificationEndpoints": {
+    "dashboard": "GET /api/results",
+    "classes": "GET /api/classes",
+    "classStudents": "GET /api/classes/:classId/students",
+    "studentTrace": "GET /api/results/:studentId/trace",
+    "recalculate": "POST /api/results/recalculate",
+    "checkingLists": "GET /api/checking",
+    "verifyCheckingItem": "PATCH /api/checking/:id/verify",
+    "rejectCheckingItem": "PATCH /api/checking/:id/reject"
+  },
+  "testSuite": {
+    "unitTests": 20,
+    "apiTests": 14,
+    "selfCheckAssertions": 15,
+    "totalPassed": 49,
+    "totalFailed": 0,
+    "passRate": "100%"
+  }
+}

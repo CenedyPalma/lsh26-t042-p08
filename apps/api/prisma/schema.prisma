@@ -1,0 +1,155 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SubjectStatus {
+  PRESENT
+  ABSENT
+}
+
+enum ResultStatus {
+  PASS
+  FAIL
+}
+
+enum CheckingType {
+  OPTIONAL
+  PRACTICAL_FAIL
+  ABSENT
+}
+
+enum VerificationStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+model Class {
+  id           String    @id @default(cuid())
+  name         String    @unique
+  academicYear String    @default("2026")
+  students     Student[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Student {
+  id            String               @id @default(cuid())
+  studentId     String               @unique
+  roll          Int
+  name          String
+  classId       String
+  class         Class                @relation(fields: [classId], references: [id], onDelete: Cascade)
+  marks         StudentSubjectMark[]
+  result        StudentResult?
+  checkingItems CheckingItem[]
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+
+  @@unique([classId, roll])
+  @@index([classId])
+  @@index([studentId])
+}
+
+model Subject {
+  id                String               @id @default(cuid())
+  name              String
+  code              String               @unique
+  isOptional        Boolean              @default(false)
+  hasPractical      Boolean              @default(false)
+  theoryMaximum     Int                  @default(75)
+  theoryPassMark    Int                  @default(25)
+  practicalMaximum  Int?                 @default(25)
+  practicalPassMark Int?                 @default(8)
+  marks             StudentSubjectMark[]
+  traces            ResultTrace[]
+  checkingItems     CheckingItem[]
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+}
+
+model StudentSubjectMark {
+  id             String        @id @default(cuid())
+  studentId      String
+  student        Student       @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  subjectId      String
+  subject        Subject       @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  theoryMarks    Int?
+  practicalMarks Int?
+  status         SubjectStatus @default(PRESENT)
+  isAbsent       Boolean       @default(false)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@unique([studentId, subjectId])
+  @@index([studentId])
+  @@index([subjectId])
+}
+
+model StudentResult {
+  id                      String         @id @default(cuid())
+  studentId               String         @unique
+  student                 Student        @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  compulsoryGradePointSum Float
+  optionalGradePoint      Float
+  optionalContribution    Float
+  uncancelledGPA          Float
+  finalGPA                Float
+  finalLetterGrade        String
+  overallResult           ResultStatus
+  calculationVersion      Int            @default(1)
+  calculatedAt            DateTime       @default(now())
+  updatedAt               DateTime       @updatedAt
+  traces                  ResultTrace[]
+  checkingItems           CheckingItem[]
+
+  @@index([overallResult])
+  @@index([finalGPA])
+}
+
+model ResultTrace {
+  id              String        @id @default(cuid())
+  studentResultId String
+  studentResult   StudentResult @relation(fields: [studentResultId], references: [id], onDelete: Cascade)
+  subjectId       String
+  subject         Subject       @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  theoryMarks     Int?
+  practicalMarks  Int?
+  totalMarks      Int?
+  markUsed        Int?
+  grade           String
+  gradePoint      Float
+  status          String
+  ruleCode        String
+  ruleDescription String
+  createdAt       DateTime      @default(now())
+
+  @@index([studentResultId])
+  @@index([subjectId])
+}
+
+model CheckingItem {
+  id                String             @id @default(cuid())
+  studentId         String
+  student           Student            @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentResultId   String
+  studentResult     StudentResult      @relation(fields: [studentResultId], references: [id], onDelete: Cascade)
+  subjectId         String?
+  subject           Subject?           @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+  type              CheckingType
+  reason            String
+  status            VerificationStatus @default(PENDING)
+  verificationNotes String?
+  verifiedAt        DateTime?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  @@index([type])
+  @@index([status])
+  @@index([studentId])
+}
