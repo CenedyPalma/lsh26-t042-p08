@@ -11,3 +11,5 @@ coverage
 .env.local
 .env.production
 .agents
+.vercel
+.env*
